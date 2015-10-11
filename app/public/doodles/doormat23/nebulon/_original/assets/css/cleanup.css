@@ -1,0 +1,46 @@
+
+#leftnavigation{
+	display:none !important;
+}
+
+#page_footer{
+	display:none !important;
+}
+
+#top_wrapper{
+	display:none !important;
+}
+
+#main_content_segment{
+	display:none !important;
+}
+
+#content_section{
+	display:none !important;
+}
+
+#document_wrapper{
+	display:none !important;
+}
+
+#nav{
+    display:none !important;
+}
+
+/* Seems to be mobile only template. */
+#mast{
+    display:none !important;
+}
+
+#mast{
+    display:none !important;
+}
+
+#cookieMessage{
+    display:none !important;
+}
+
+#wrapper{
+    width: 100% !important;
+    height: 100% !important;
+}

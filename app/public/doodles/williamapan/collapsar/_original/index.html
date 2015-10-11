@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Collapsar | WebGL Experiment</title>
+    <meta name="description" content="Experiment by William Mapan">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <script type="x-shader/x-vertex" id="vs">
+
+      uniform sampler2D texture;
+      uniform vec2 offsetRepeat;
+      uniform float scalar;
+      varying vec2 vUv;
+      varying vec3 vPosition;
+      varying float zPos;
+
+
+      void main() {
+        vUv = uv + offsetRepeat;
+        zPos = position.y;
+        vec3 color = texture2D(texture, vUv).rgb;
+        float gray = dot( color, vec3(0.299, 0.587, 0.114));//convert in grey : 0-1
+        vec3 newPosition = position - normal * vec3( gray * scalar );
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );  
+
+        vPosition = (vec4( newPosition, 1.0 ) * modelViewMatrix).xyz;
+  
+      }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fs">
+
+      varying vec2 vUv;
+      varying float zPos;
+      varying vec3 vPosition;
+      uniform sampler2D texture;
+      uniform vec3 color;
+      uniform float alpha;
+      uniform float time;
+      uniform vec3 mousePoint;
+      uniform float speed;
+
+      void main() {
+
+        vec3 textureColor = texture2D(texture, vUv).rgb;
+        vec3 timeColor = vec3( abs( sin(time) + 0.5 ), abs( cos(time) + 0.5 ), abs( tan(time) + 0.5 ) );
+        
+        vec3 timeAndTextureColor = mix( textureColor, timeColor, 0.2 );
+        vec3 mouseColor = vec3( 0.5, 0.5, 0.5 );
+        float distance = distance( vPosition, mousePoint ) + speed;
+
+        vec3 finalColor = mix( timeAndTextureColor, mouseColor, distance );
+
+        float alpha = clamp( zPos , 0.0, alpha);
+
+        gl_FragColor = texture2D(texture, vUv) * vec4( finalColor, alpha );
+      }
+
+    </script>
+
+
+  </head>
+
+  <body>
+
+    <div class="app">
+      <div class="info" style="display:none !important;">
+        <a href="http://threejs.org/" target="_blank">THREE.js</a> , GLSL experiment by <a href="http://wllmpn.com" target="_blank">William Mapan</a> <br/>
+        Inspired by this <a href="http://collapsar.ru/collapsar.jpg" target="_blank"> image</a> <br/>
+        Enjoy the <span class="fullscreen"> fullscreen </span> :)
+      </div>
+    </div>
+
+    <script src="assets/js/vendor/v.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+
+</html>

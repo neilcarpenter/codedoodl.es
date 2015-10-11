@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+
+    
+    <link rel="icon" href="assets/favicons/favicon.png" type="image/png">
+    
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/touch-icon-57x57.png">
+    <link rel="apple-touch-icon-precomposed" href="images/touch-icon-57x57.png">
+
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/cleanup.css">
+
+    <meta name="description" content="">
+
+    <title></title>
+</head>
+
+<body>
+
+    <div id="container" style="width:100%; height:100%; overflow:hidden;"></div>
+
+    <div id="nosupport" style="display:none;">
+        <div id="fallbackBg"></div>
+        <div id="fallbackMessageStock"></div>
+    </div>
+
+    <noscript>
+        <div id="fallbackBg"></div>
+        <div id="fallbackMessageNoJS"></div>
+    </noscript>
+
+    <!--[if lte IE 8]>
+        <script>
+            window.location = 'fallback.html';
+        </script>
+    <![endif]-->
+
+
+    <!--[if !lte IE 8]-->
+    <script src="./js/require.js" data-main="./js/nebulon.js"></script>
+
+    <script>
+        var ENV = window.ENV = {};
+        window.ENV = {};
+
+
+    </script>
+<!--[endif]-->
+    
+     ;"></div>
+    </div>
+
+
+</body>
+
+</html>

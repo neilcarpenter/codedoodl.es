@@ -11,8 +11,8 @@ config.express_preview =
 config.PRODUCTION = process.env.NODE_ENV is "production"
 
 config.buckets =
-	ASSETS        : 'assets.codedoodl.es'
-	SOURCE        : 'source.codedoodl.es'
+	ASSETS        : "#{config.express.ip}:#{config.express.port}"
+	SOURCE        : "#{config.express.ip}:#{config.express.port}"
 	SOURCE_S3_URL : 's3-eu-west-1.amazonaws.com/source.codedoodl.es'
 	PENDING       : 'pending.codedoodl.es'
 
@@ -26,7 +26,7 @@ config.EXTERNAL_URLS =
 
 config.BASE_URL           = if config.PRODUCTION then "http://codedoodl.es" else "http://#{config.express.ip}:#{config.express.port}"
 config.ASSETS_BUCKET_URL  = if config.PRODUCTION then "http://#{config.buckets.ASSETS}" else "http://#{config.express.ip}:#{config.express.port}"
-config.DOODLES_BUCKET_URL = "http://#{config.buckets.SOURCE}"
+config.DOODLES_BUCKET_URL = "http://#{config.buckets.SOURCE}/doodles"
 
 config.DOODLE_CACHE_TIMEOUT = if config.PRODUCTION then ((1000 * 60) * 5) else 0
 

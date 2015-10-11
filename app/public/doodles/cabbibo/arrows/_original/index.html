@@ -1,0 +1,163 @@
+<html>
+
+  <head>
+    <style>
+      body{ margin: 0px; }
+      html{ overflow: hidden }
+      #stats{ 
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <script src = "lib/three.min.js"                ></script>
+    <script src = "lib/jquery.min.js"               ></script>
+    <script src = "lib/stats.min.js"                ></script>
+    <script src = "lib/ShaderLoader.js"             ></script>
+
+    <script src = "lib/TrackballControls.js"        ></script>
+    
+    <script src = "lib/PhysicsRenderer.js"          ></script>
+    <script src = "lib/ObjectControls.js"           ></script>
+
+    <script src = "InstanceMesh.js"                 ></script> 
+    
+    <script src = "Curl.js"                   ></script>
+    <script src = "Feather.js"                ></script> 
+    <script>
+
+
+      var camera, renderer, scene , controls , clock;
+      var stats; 
+    
+      var leaders = [];
+      var time = { type: "f" , value :0 };
+      var dT = { type:"f" , value: 0 };
+
+
+      var paused = false;
+
+      var soulUniforms = {
+  
+        dT: dT,
+        noiseSize: { type:"f" , value: 1. }
+        
+      }
+
+      var bodyUniforms = {
+  
+      }
+
+      var shaders = new ShaderLoader( 'shaders' );
+
+      shaders.shaderSetLoaded = function(){
+        init();
+        animate();
+      }
+
+      shaders.load( 'ss-curl' , 'curl' , 'simulation' );
+      
+      shaders.load( 'vs-curl' , 'curl' , 'vertex'     );
+      shaders.load( 'fs-curl' , 'curl' , 'fragment'   );
+
+      function init(){
+
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        camera = new THREE.PerspectiveCamera( 65 , w/h , .001 , 100 );
+        camera.position.z = 3;
+   
+        scene = new THREE.Scene();
+
+        var dpr = window.devicePixelRatio || 1;
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( dpr );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        document.body.appendChild( renderer.domElement );
+
+        window.addEventListener( 'resize', onWindowResize, false );
+        window.addEventListener( 'dblclick', onDoubleClick, false );
+
+
+        controls = new THREE.TrackballControls( camera );
+
+        clock = new THREE.Clock();
+      
+
+        //var geo = new THREE.IcoshedronGeometry( .1 , 0 );
+        var geo = Feather( .1 );
+
+        curl = new Curl({
+
+          instanceNumber:     128 * 128,
+
+          soulUniforms:       soulUniforms,
+          bodyUniforms:       bodyUniforms, 
+          
+          geometry:           geo,
+
+          renderer:           renderer,
+          
+          vertexShader:       shaders.vs.curl,
+          fragmentShader:     shaders.fs.curl,
+          
+          simulationShader:   shaders.ss.curl,
+
+        });
+       
+        curl.activate( scene ); 
+
+        
+ 
+      }
+
+      
+      function animate(){
+
+       
+
+        
+        requestAnimationFrame( animate );
+        controls.update();
+
+   
+         
+        dT.value = clock.getDelta();
+        time.value += dT.value;
+
+      
+
+        if( !paused ){
+
+          curl.update();
+
+        }
+
+        renderer.render( scene , camera );
+      }
+
+      function onDoubleClick(){
+
+        paused = !paused;
+
+      }
+
+      function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+    </script>
+
+  </body>
+</html>

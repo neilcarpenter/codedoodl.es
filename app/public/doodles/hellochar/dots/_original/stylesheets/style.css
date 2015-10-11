@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #e9eaed;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  width: 100%;
+}
+
+.sketch-wrapper {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.sketch-wrapper.disabled {
+    opacity: 0.25;
+}
+
+.sketch-wrapper canvas {
+  background: #fafafa;
+  display: block;
+  position: relative;
+}
+
+
+.sketch-wrapper .instructions {
+    font-size: 2em;
+    position: absolute;
+    top: 55px;
+    left: 25%;
+    right: 25%;
+    color: white;
+    opacity: 1;
+    transition: opacity 1s linear;
+    -webkit-animation: pulsing 1s linear infinite alternate;
+    animation: pulsing 1s linear infinite alternate;
+}
+
+.sketch-wrapper .instructions.interacted {
+    -webkit-animation: none;
+    animation: none;
+    opacity: 0;
+    display: none;
+}
+
+@-webkit-keyframes pulsing {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes pulsing {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+

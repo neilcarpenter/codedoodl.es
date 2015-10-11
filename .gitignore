@@ -25,6 +25,6 @@ app/public/html
 #app/site/index.html
 #app/site/holding.html
 #app/site/login.html
-app/public/static/fonts
+#app/public/static/fonts
 
 doodles/.gitignore

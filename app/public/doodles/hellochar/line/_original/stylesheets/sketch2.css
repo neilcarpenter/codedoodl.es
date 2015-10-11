@@ -1,0 +1,27 @@
+#line .topbar {
+}
+
+#line canvas {
+    background: black;
+}
+
+#line .reset {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    transition: background 0.15s;
+    background: #ddd;
+    border: none;
+    padding: 7px 22px;
+    margin: 4px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.15);
+}
+
+#line .reset:hover {
+    background: #ccc;
+    box-shadow: 0 0 2px rgba(0,0,0,0.15);
+}
+
+#line .reset:active {
+    background: #c2c2c2;
+    box-shadow: 0 0 2px inset rgba(0, 0, 0, 0.15);
+}
