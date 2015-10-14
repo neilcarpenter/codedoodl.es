@@ -7,7 +7,10 @@ var pkg    = require('../../package.json');
 var exts    = ['css', 'js', 'xml', 'json'];
 var re      = new RegExp('(-[a-z0-9]{8})(.('+exts.join('|')+'))$', 'i');
 
-var src     = pkg.folders.dest+'/**/*.{'+exts.join(',')+'}';
+var src     = [
+	pkg.folders.dest+'/**/*.{'+exts.join(',')+'}',
+	'!' + pkg.folders.dest + '/doodles/**/*'
+];
 var dest    = pkg.folders.dest;
 
 gulp.task('_versionCleanAssets', function () {
