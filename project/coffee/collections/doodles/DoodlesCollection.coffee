@@ -28,7 +28,7 @@ class DoodlesCollection extends AbstractCollection
 		index--
 
 		if index < 0
-			return false
+			return _.last(@models)
 		else
 			return @at index
 
@@ -37,8 +37,10 @@ class DoodlesCollection extends AbstractCollection
 		index = @indexOf doodle
 		index++
 
-		if index > (@length.length-1)
-			return false
+		console.log 'getNextDoodle', index, doodle
+
+		if index > (@length-1)
+			return @at 0
 		else
 			return @at index
 
